@@ -184,6 +184,7 @@ UPROGS=\
 	_user_toggle\
 	_print_count\
 	_user_add\
+	_ps\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -256,7 +257,7 @@ EXTRA=\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
-	user_toggle.c print_count.c user_add.c\
+	user_toggle.c print_count.c user_add.c ps.c\
 
 dist:
 	rm -rf dist
