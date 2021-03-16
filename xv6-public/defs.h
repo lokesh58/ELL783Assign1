@@ -157,7 +157,7 @@ int             fetchstr(uint, char**);
 void            syscall(void);
 extern char*    syscallnames[];
 extern int      trace_syscall;
-extern uint     count_syscall[100];
+extern int      count_syscall[100];
 
 // timer.c
 void            timerinit(void);

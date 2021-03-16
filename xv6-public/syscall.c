@@ -159,7 +159,7 @@ char* syscallnames[] = {
 };
 
 int trace_syscall = 0;
-uint count_syscall[100] = {0}; //Assuming there won't be more than 100 system calls
+int count_syscall[100] = {0}; //Assuming there won't be more than 100 system calls
 
 void
 syscall(void)
