@@ -155,6 +155,7 @@ int             argstr(int, char**);
 int             fetchint(uint, int*);
 int             fetchstr(uint, char**);
 void            syscall(void);
+extern char*    syscallnames[];
 extern bool     trace_syscall;
 extern uint     count_syscall[100];
 
