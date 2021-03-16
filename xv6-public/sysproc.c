@@ -117,5 +117,5 @@ sys_add(void) {
 }
 
 int sys_ps(void) {
-  return 0;
+  return ps();
 }
