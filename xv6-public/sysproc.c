@@ -115,3 +115,7 @@ sys_add(void) {
   if(argint(1, &b) < 0) return -1;
   return a+b;
 }
+
+int sys_ps(void) {
+  return 0;
+}
