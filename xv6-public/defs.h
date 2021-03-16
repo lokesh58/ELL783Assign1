@@ -155,6 +155,8 @@ int             argstr(int, char**);
 int             fetchint(uint, int*);
 int             fetchstr(uint, char**);
 void            syscall(void);
+extern bool     trace_syscall;
+extern uint     count_syscall[100];
 
 // timer.c
 void            timerinit(void);
