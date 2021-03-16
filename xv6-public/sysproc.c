@@ -89,3 +89,13 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+//Custom defined system calls start here
+int
+sys_print_count(void) {
+  for(int i=0; i<100; ++i){
+    if(count_syscall[i] > 0)
+      cprintf("%s %u\n", syscallnames[i], count_syscall[i]);
+  }
+  return 0;
+}
