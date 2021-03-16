@@ -158,6 +158,12 @@ char* syscallnames[] = {
 [SYS_toggle]  "sys_toggle",
 };
 
+int printOrder[100] = {
+  SYS_chdir, SYS_close, SYS_dup, SYS_exec, SYS_exit, SYS_fork, SYS_fstat, SYS_getpid, SYS_kill,
+  SYS_link, SYS_mkdir, SYS_mknod, SYS_open, SYS_pipe, SYS_print_count, SYS_read, SYS_sbrk,
+  SYS_sleep, SYS_toggle, SYS_unlink, SYS_uptime, SYS_wait, SYS_write,
+};
+
 int trace_syscall = 0;
 int count_syscall[100] = {0}; //Assuming there won't be more than 100 system calls
 

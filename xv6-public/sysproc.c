@@ -94,8 +94,10 @@ sys_uptime(void)
 int
 sys_print_count(void) {
   for(int i=0; i<100; ++i){
-    if(count_syscall[i] > 0)
-      cprintf("%s %d\n", syscallnames[i], count_syscall[i]);
+    int index = printOrder[i];
+    if(count_syscall[index] > 0){
+      cprintf("%s %d\n", syscallnames[index], count_syscall[index]);
+    }
   }
   return 0;
 }

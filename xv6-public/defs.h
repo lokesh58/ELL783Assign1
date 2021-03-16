@@ -156,6 +156,7 @@ int             fetchint(uint, int*);
 int             fetchstr(uint, char**);
 void            syscall(void);
 extern char*    syscallnames[];
+extern int      printOrder[100];
 extern int      trace_syscall;
 extern int      count_syscall[100];
 
