@@ -539,7 +539,7 @@ ps(void) {
   struct proc *p;
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-    if(p->state == RUNNING){
+    if(p->state != UNUSED){
       cprintf("pid:%d name:%s\n", p->pid, p->name);
     }
   }
