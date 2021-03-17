@@ -130,7 +130,7 @@ sys_ps(void) {
 //Data structure for sys_send and sys_recv
 struct Node {
   int sender_pid;
-  void *msg;
+  char msg[100]; //Max message size is 100 bytes
 };
 
 #define MAXM 100
@@ -151,10 +151,12 @@ void qinit(void) {
 int
 sys_send(void) {
   int sender_pid, rec_pid;
-  void *msg;
+  char *msg;
+  int msg_len;
   if(argint(0, &sender_pid) < 0) return -1;
   if(argint(1, &rec_pid) < 0) return -1;
-  if(argstr(2, (char**)&msg) < 0) return -1;
+  msg_len = argstr(2, &msg);
+  if(msg_len < 0 || msg_len >= 100) return -1;
   if(rec_pid < 0 || rec_pid >= NPROC) return -1;
 
   acquire(&mQueue.lock); //Acquire lock on message queue
@@ -170,7 +172,8 @@ sys_send(void) {
   }
   //Add the message to queue at tail
   mQueue.q[rec_pid][mQueue.tail[rec_pid]].sender_pid = sender_pid;
-  mQueue.q[rec_pid][mQueue.tail[rec_pid]].msg = msg;
+  char *qmsg = mQueue.q[rec_pid][mQueue.tail[rec_pid]].msg;
+  while((*qmsg++ = *msg++) != 0);
 
   release(&mQueue.lock); //Release the lock
   return 0;
