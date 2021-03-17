@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "spinlock.h"
 
 int
 sys_fork(void)
@@ -121,6 +122,26 @@ sys_add(void) {
   return a+b;
 }
 
-int sys_ps(void) {
+int
+sys_ps(void) {
   return ps();
+}
+
+//Data structure for sys_send and sys_recv
+struct Node {
+  int sender_pid;
+  char *msg;
+  struct Node *next;
+};
+
+struct {
+  struct spinlock lock;
+  struct Node *head[NPROC], *tail[NPROC];
+} mQueue;
+
+void qinit(void) {
+  initlock(&mQueue.lock, "mQueue");
+  for(int i=0; i<NPROC; ++i){
+    mQueue.head[i] = mQueue.tail[i] = 0; //NULL
+  }
 }

@@ -161,6 +161,9 @@ extern int      printOrder[100];
 extern int      trace_syscall;
 extern int      count_syscall[100];
 
+// sysproc.c
+void            qinit(void);
+
 // timer.c
 void            timerinit(void);
 
