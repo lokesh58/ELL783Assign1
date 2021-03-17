@@ -108,6 +108,7 @@ extern int sys_toggle(void);
 extern int sys_add(void);
 extern int sys_ps(void);
 extern int sys_send(void);
+extern int sys_recv(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -136,6 +137,7 @@ static int (*syscalls[])(void) = {
 [SYS_add]     sys_add,
 [SYS_ps]      sys_ps,
 [SYS_send]    sys_send,
+[SYS_recv]    sys_recv,
 };
 
 char* syscallnames[] = {
@@ -165,11 +167,12 @@ char* syscallnames[] = {
 [SYS_add]     "sys_add",
 [SYS_ps]      "sys_ps",
 [SYS_send]    "sys_send",
+[SYS_recv]    "sys_recv",
 };
 
 int printOrder[100] = {
   SYS_add, SYS_chdir, SYS_close, SYS_dup, SYS_exec, SYS_exit, SYS_fork, SYS_fstat, SYS_getpid, SYS_kill,
-  SYS_link, SYS_mkdir, SYS_mknod, SYS_open, SYS_pipe, SYS_print_count, SYS_ps, SYS_read, SYS_sbrk,
+  SYS_link, SYS_mkdir, SYS_mknod, SYS_open, SYS_pipe, SYS_print_count, SYS_ps, SYS_read, SYS_recv, SYS_sbrk,
   SYS_send, SYS_sleep, SYS_toggle, SYS_unlink, SYS_uptime, SYS_wait, SYS_write,
 };
 

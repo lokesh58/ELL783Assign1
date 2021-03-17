@@ -25,3 +25,4 @@
 #define SYS_add    24
 #define SYS_ps     25
 #define SYS_send   26
+#define SYS_recv   27

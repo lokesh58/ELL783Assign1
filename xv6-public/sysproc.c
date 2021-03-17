@@ -175,3 +175,9 @@ sys_send(void) {
   release(&mQueue.lock); //Release the lock
   return 0;
 }
+
+int
+sys_recv(void){
+  //TODO
+  return 0;
+}
