@@ -35,17 +35,6 @@ main(int argc, char *argv[])
 	int section_size = (size+max_process-1)/max_process; //ceil(size/max_process)
 	int childPID;
 	char *msg = (char*)malloc(8);
-	//debug -----------------------------------------------------------------------------
-  	for(int i=0;i<max_process;++i){
-  		int s=i*section_size, e=(i+1)*section_size;
-  		if(e>size) e=size;
-  		int sum=0;
-  		for(int i=s;i<e;++i){
-  			sum += arr[i];
-  		}
-  		printf(1,"i=%d, sum=%d\n", i, sum);
-  	}
-  	//debug end --------------------------------------------------------------------------
 	for(int i=1; i<max_process; ++i){
 		childPID = fork();
 		if(childPID == 0){
@@ -65,7 +54,8 @@ main(int argc, char *argv[])
 		for(int i=start;i<end;++i){
 			sum += arr[i];
 		}
-		char *t = msg;
+		//Store the sum as string in msg (initally we store the sum reversed)
+		char *t = msg; //t helps to store the sum in msg
 		int sz=0;
 		while(sum > 0){
 			++sz;
