@@ -163,6 +163,7 @@ sys_send(void) {
   if(mQueue.tail[rec_pid] == -1){ // Queue empty, insert first element
     mQueue.head[rec_pid] = mQueue.tail[rec_pid] = 0;
   } else if((mQueue.tail[rec_pid]+1)%MAXM == mQueue.head[rec_pid]){ //Queue full
+    release(&mQueue.lock); //Lock must be released before exiting
     return -1; //Indicate error as memory full
   } else {
     mQueue.tail[rec_pid] = (mQueue.tail[rec_pid]+1)%MAXM; //Insert new element
