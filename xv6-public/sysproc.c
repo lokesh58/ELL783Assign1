@@ -105,7 +105,7 @@ sys_print_count(void) {
 int
 sys_toggle(void) {
   trace_syscall = 1-trace_syscall; //change 0 to 1, and 1 to 0 where 0: trace off, 1: trace on
-  if(trace_syscall == 1){
+  if(trace_syscall == 0){
     for(int i=0; i<100; ++i){
       count_syscall[i] = 0;
     }
