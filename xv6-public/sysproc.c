@@ -128,9 +128,11 @@ sys_ps(void) {
 }
 
 //Data structure for sys_send and sys_recv
+#define MSG_SIZE 8
+
 struct Node {
   int sender_pid;
-  char msg[100]; //Max message size is 100 bytes
+  char msg[MSG_SIZE];
 };
 
 #define MAXM 100
@@ -156,7 +158,7 @@ sys_send(void) {
   if(argint(0, &sender_pid) < 0) return -1;
   if(argint(1, &rec_pid) < 0) return -1;
   msg_len = argstr(2, &msg);
-  if(msg_len < 0 || msg_len >= 100) return -1;
+  if(msg_len < 0 || msg_len >= MSG_SIZE) return -1;
   if(rec_pid < 0 || rec_pid >= NPROC) return -1;
 
   acquire(&mQueue.lock); //Acquire lock on message queue
@@ -181,6 +183,27 @@ sys_send(void) {
 
 int
 sys_recv(void){
-  //TODO
+  char *msg;
+  if(argptr(0, &msg, MSG_SIZE) < 0) return -1;
+  int recieved = 0, pid = myproc()->pid;
+  do{
+    acquire(&mQueue.lock);
+
+    //Check if a message is there
+    if(mQueue.head[pid] != -1){
+      recieved = 1;
+      //Copy message to msg
+      char *qmsg = mQueue.q[pid][mQueue.head[pid]].msg;
+      while((*msg++ = *qmsg++) != 0);
+      //Delete the message from queue
+      if(mQueue.head[pid] == mQueue.tail[pid]){
+        mQueue.head[pid] = mQueue.tail[pid] = -1;
+      } else {
+        mQueue.head[pid] = (mQueue.head[pid]+1)%MAXM;
+      }
+    }
+
+    release(&mQueue.lock);
+  } while (recieved == 0);
   return 0;
 }
