@@ -9,6 +9,8 @@ int main(void)
 	toggle(); 
 	printf(1,"%s\n","IPC Test case");
 	// char *msg = (char *)malloc(20);
+	// int myid;
+	// int from;	
 	
 int cid = fork();
 	if(cid==0){
@@ -16,6 +18,7 @@ int cid = fork();
 		char *msg = (char *)malloc(MSGSIZE);
 		int stat=-1;
 		while(stat==-1){
+			// stat = recv(&myid ,&from, msg);
 			stat = recv(msg);
 		}
 		printf(1,"2 CHILD: msg recv is: %s \n", msg );
