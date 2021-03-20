@@ -92,25 +92,31 @@ sys_uptime(void)
 }
 
 //Custom defined system calls start here
+struct spinlock count_syscall_lock;
+
 int
 sys_print_count(void) {
+  acquire(&count_syscall_lock);
   for(int i=0; i<100; ++i){
     int index = printOrder[i];
     if(count_syscall[index] > 0){
       cprintf("%s %d\n", syscallnames[index], count_syscall[index]);
     }
   }
+  release(&count_syscall_lock);
   return 0;
 }
 
 int
 sys_toggle(void) {
+  acquire(&count_syscall_lock);
   trace_syscall = 1-trace_syscall; //change 0 to 1, and 1 to 0 where 0: trace off, 1: trace on
   if(trace_syscall == 0){
     for(int i=0; i<100; ++i){
       count_syscall[i] = 0;
     }
   }
+  release(&count_syscall_lock);
   return 0;
 }
 
@@ -145,6 +151,7 @@ struct {
 
 void qinit(void) {
   initlock(&mQueue.lock, "mQueue");
+  initlock(&count_syscall_lock, "cntsyscall");
   for(int i=0;i<NPROC;++i){
     mQueue.head[i] = mQueue.tail[i] = -1;
   }
